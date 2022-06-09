@@ -43,9 +43,10 @@ function search(data){
             phoneticTag.style.display = 'none'
         }
     }
-
     wordTag.innerHTML = data[0].word
     phoneticTag.innerHTML = phoneticText
     audioTag.src = audioUrl
     def.innerHTML = data[0].meanings[0].definitions[0].definition
+
+    search_bar.value = ''
 }
