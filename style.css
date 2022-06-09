@@ -1,16 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Joan&display=swap');
 *{
     box-sizing: border-box;
-    font-family: Helvetica;
+    font-family: 'Joan', serif;
     margin: 0;
     outline: 0;
+}
+html{
+    font-size: 20px;
 }
 .page_title{
     width: 100%;
     display: flex;
-    justify-content: center;
+    font-size: 1rem;
+    font-weight: 100;
     align-items: center;
     padding: .5em;
-    background: gainsboro;
+    background: rgb(241, 241, 241);
+    border-bottom: 1px solid black;
 }
 main{
     display: flex;
@@ -21,19 +27,25 @@ main{
 }
 .search_section{
     display: flex;
+    align-items: center;
     width: 100%;
-    gap: 1.5em
+    gap: 1.5em;
 }
-.search{
-    width: 70%;
-    font-size: 1rem;
-    padding: .3em;
-}
-.search_button{
-    width: max-content;
-    padding: .3em;
-    font-size: 1rem;
-}
+    .search{
+        width: 85%;
+        font-size: 1.5rem;
+        padding: .3em;
+    }
+    .search_button{
+        background-image: url(./magnifier.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        height: 2.5em;
+        width: 2.5em;
+        padding: .3em;
+        font-size: 1rem;
+        cursor: pointer;
+    }
 .word{
     font-size: 1.8rem;
 }
@@ -52,4 +64,5 @@ main{
     background-image: url(./play.png);
     background-size: cover;
     display: none;
+    cursor: pointer;
 }

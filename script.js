@@ -21,8 +21,6 @@ async function loadData() {
 function search(data){
     let audioUrl = ''
     let phoneticText = ''
-    console.log(data[0].phonetics.length)
-
 
     // go through all phonetics indexes
     for(i=0; i<data[0].phonetics.length; i++){
@@ -44,25 +42,7 @@ function search(data){
         else if(!data[0].phonetics[i].audio && !phoneticText){
             phoneticTag.style.display = 'none'
         }
-
-
-
     }
-
-    // data[0].phonetics.[].forEach(child => {
-    //     // find first audio file available
-    //     if(child.audio){
-    //         audioUrl=child.audio
-    //         play_button.style.display = 'block'
-    //     }
-    //     else if(!child.audio){play_button.style.display = 'none'}
-
-    //     // find first phonetic
-    //     if(child.text){
-    //         phoneticText = child.text
-    //     }
-    //     else if(!child.text){phoneticTag.style.display='none'}
-    // });
 
     wordTag.innerHTML = data[0].word
     phoneticTag.innerHTML = phoneticText
