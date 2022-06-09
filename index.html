@@ -5,13 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
 <body>
-    <input type="text" class="search" placeholder="Search">
-    <input type="button" value="Find" class="search_button">
-    <p class="word"></p>
-    <br>
-    <p class="def"></p>
+    <div class="page_title"><h1>Dictionary</h1></div>
+    <main>
+        <input type="search" class="search" placeholder="Search">
+        <input type="button" value="Find" class="search_button">
+        <p class="word"></p>
+        <div class="phonetic_audio">
+            <p class="phonetic"></p>
+            <audio class="audio" src=""></audio>
+            <div class="play_button">Play</div>
+        </div>
+
+        <p class="def"></p>
+    </main>
 </body>
 </html>

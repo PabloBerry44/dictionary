@@ -1,0 +1,44 @@
+*{
+    box-sizing: border-box;
+    font-family: Helvetica;
+    margin: 0;
+    outline: 0;
+}
+.page_title{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .5em;
+    background: gainsboro;
+}
+main{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1em;
+    gap: 1em;
+}
+.search{
+    width: 70%;
+    font-size: 1rem;
+    padding: .3em;
+}
+.search_button{
+    width: max-content;
+    padding: .3em;
+    font-size: 1rem;
+}
+.word{
+    font-size: 1.8rem;
+}
+.phonetic_audio{
+    display: flex;
+    gap: 1em;
+}
+.phonetic{
+    color: gray;
+}
+.play_button{
+    width: max-content;
+}
