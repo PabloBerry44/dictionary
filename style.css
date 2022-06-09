@@ -69,3 +69,23 @@ main{
     display: none;
     cursor: pointer;
 }
+.part_of_speech{
+    font-size: 1.4rem;
+    text-decoration: underline;
+}
+
+.definitionsTag div{
+    counter-reset: index;
+}
+.definition{
+    position: relative;
+    margin-left: 1.3em;
+    display: block;
+}
+.definition::before{
+    position: absolute;
+    left: -1.3em;
+    counter-increment: index;
+    content: counter(index)". ";
+    color: gray;
+}
