@@ -1,16 +1,16 @@
-const word = document.querySelector('.word')
+const wordTag = document.querySelector('.word')
 const def = document.querySelector('.def')
 const search_bar = document.querySelector('.search')
 const search_button = document.querySelector('.search_button')
-const phonetic = document.querySelector('.phonetic')
-const audio = document.querySelector('.audio')
+const phoneticTag = document.querySelector('.phonetic')
+const audioTag = document.querySelector('.audio')
 const play_button = document.querySelector('.play_button')
 
 search_button.addEventListener('click', ()=> {
     if(!search_bar.value==''){loadData()}
 })
 
-play_button.addEventListener('click', ()=>{audio.play()})
+play_button.addEventListener('click', ()=>{audioTag.play()})
 
 async function loadData() {
     const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+search_bar.value);
@@ -19,8 +19,53 @@ async function loadData() {
   }
 
 function search(data){
-    word.innerHTML = data[0].word
-    phonetic.innerHTML = data[0].phonetics[0].text
-    audio.src = data[0].phonetics[1].audio
+    let audioUrl = ''
+    let phoneticText = ''
+    console.log(data[0].phonetics.length)
+
+
+    // go through all phonetics indexes
+    for(i=0; i<data[0].phonetics.length; i++){
+        
+        //find audioURL
+        if(data[0].phonetics[i].audio && !audioUrl){
+            audioUrl=data[0].phonetics[i].audio
+            play_button.style.display = 'block'
+        }
+        else if(!data[0].phonetics[i].audio && !audioUrl){
+            play_button.style.display = 'none'
+        }
+
+        //find phonetics text
+        if(data[0].phonetics[i].text && !phoneticText){
+            phoneticText=data[0].phonetics[i].text
+            phoneticTag.style.display = 'block'
+        }
+        else if(!data[0].phonetics[i].audio && !phoneticText){
+            phoneticTag.style.display = 'none'
+        }
+
+
+
+    }
+
+    // data[0].phonetics.[].forEach(child => {
+    //     // find first audio file available
+    //     if(child.audio){
+    //         audioUrl=child.audio
+    //         play_button.style.display = 'block'
+    //     }
+    //     else if(!child.audio){play_button.style.display = 'none'}
+
+    //     // find first phonetic
+    //     if(child.text){
+    //         phoneticText = child.text
+    //     }
+    //     else if(!child.text){phoneticTag.style.display='none'}
+    // });
+
+    wordTag.innerHTML = data[0].word
+    phoneticTag.innerHTML = phoneticText
+    audioTag.src = audioUrl
     def.innerHTML = data[0].meanings[0].definitions[0].definition
 }
