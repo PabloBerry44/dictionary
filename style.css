@@ -41,8 +41,10 @@ main{
         background-image: url(./magnifier.png);
         background-size: contain;
         background-repeat: no-repeat;
-        height: 2.5em;
-        width: 2.5em;
+        margin-top: 3px;
+        margin-right: .5em;
+        height: 2.2em;
+        width: 2.2em;
         padding: .3em;
         font-size: 1rem;
         cursor: pointer;
