@@ -47,7 +47,7 @@ main{
         border: none;
     }
     .search_button{
-        background-image: url(./magnifier.png);
+        background-image: url(./magnifier.webp);
         background-size: contain;
         background-repeat: no-repeat;
         margin-top: 3px;
@@ -72,7 +72,7 @@ main{
 .play_button{
     width: 2em;
     height: 2em;
-    background-image: url(./play.png);
+    background-image: url(./play.webp);
     background-size: cover;
     display: none;
     cursor: pointer;
