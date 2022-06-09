@@ -14,9 +14,7 @@ html{
     font-size: 1rem;
     font-weight: 100;
     align-items: center;
-    padding: .5em;
-    background: rgb(241, 241, 241);
-    border-bottom: 1px solid black;
+    padding: 1.3em;
 }
 main{
     display: flex;
@@ -30,11 +28,14 @@ main{
     align-items: center;
     width: 100%;
     gap: 1.5em;
+    background: rgb(245, 245, 245);
 }
     .search{
         width: 85%;
         font-size: 1.5rem;
         padding: .3em;
+        background: transparent;
+        border: none;
     }
     .search_button{
         background-image: url(./magnifier.png);
