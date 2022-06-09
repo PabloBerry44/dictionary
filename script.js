@@ -9,6 +9,11 @@ const play_button = document.querySelector('.play_button')
 search_button.addEventListener('click', ()=> {
     if(!search_bar.value==''){loadData()}
 })
+search_bar.addEventListener('keypress', function(event){
+    if(event.key==='Enter'){
+        loadData()
+    }
+})
 
 play_button.addEventListener('click', ()=>{audioTag.play()})
 
