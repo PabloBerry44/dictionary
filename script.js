@@ -6,7 +6,7 @@ const audioTag = document.querySelector('.audio')
 const play_button = document.querySelector('.play_button')
 const definitionsTag = document.querySelector('.definitionsTag')
 const definitionsContainer = document.querySelector('.definitionsContainer')
-
+const books = document.querySelector('.books')
 
 
 search_button.addEventListener('click', ()=> {
@@ -27,6 +27,8 @@ async function loadData() {
   }
 
 function search(data){
+    books.style.display='none'
+
     while(definitionsContainer.firstChild){
         definitionsContainer.removeChild(definitionsContainer.lastChild)
     }

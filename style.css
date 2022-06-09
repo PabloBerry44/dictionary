@@ -9,22 +9,23 @@ html{
     font-size: 20px;
 }
 .page_title{
-    width: 100%;
     display: flex;
     font-size: 1rem;
     font-weight: 100;
     align-items: center;
-    padding: 1.3em;
 }
 main{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    padding: 1em;
+    padding: 1.2em;
     gap: 1em;
+    max-width: 1200px;
+    margin-inline: auto;
 }
 .books{
     width: 70%;
+    max-width: 300px;
     opacity: .5;
     top: 40%;
     left: 50%;
@@ -37,7 +38,6 @@ main{
     width: 100%;
     gap: 1.5em;
     background: rgb(245, 245, 245);
-    max-width: 500px;
 }
     .search{
         width: 85%;
