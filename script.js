@@ -36,17 +36,18 @@ function search(data){
     synonyms.classList.add('synonyms')
     const expandSynonyms = document.createElement('div')
     expandSynonyms.classList.add('expand_synonyms')
+    expandSynonyms.innerHTML = 'show more'
     synonymsContainer.appendChild(synonyms)
     synonymsContainer.appendChild(expandSynonyms)
     let synonym = []
     expandSynonyms.addEventListener('click', ()=>{
         if(synonyms.style.maxHeight!='max-content'){
             synonyms.style.maxHeight= 'max-content'
-            expandSynonyms.style.transform = 'rotateZ(180deg)'
+            expandSynonyms.innerHTML = 'show less'
         }
         else{
             synonyms.style.maxHeight= '3em'
-            expandSynonyms.style.transform = 'none'
+            expandSynonyms.innerHTML = 'show more'
         }
 
     })

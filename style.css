@@ -82,12 +82,13 @@ main{
 }
 .synonyms_container{
     display: flex;
+    flex-direction: column;
 }
 .synonyms{
     color: rgb(106, 106, 106);
     max-height: 3em;
     overflow: hidden;
-    width: 90%;
+    width: 100%;
 }
     .synonyms::before{
         content: 'Synonyms: ';
@@ -95,16 +96,7 @@ main{
         color: black;
     }
     .expand_synonyms{
-        width: 2em;
-        height: 2em;
-        margin-top: .5em;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-image: url(./arrow-down.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        transition: 250ms;
+        cursor: pointer;
     }
 .part_of_speech{
     counter-reset: index;
@@ -114,7 +106,7 @@ main{
 }
 .def_container{
     background: rgb(247, 247, 247);
-    border-radius: 10px;
+    border-radius: 5px;
     padding: .5em;
     margin-bottom: 15px;
 }
