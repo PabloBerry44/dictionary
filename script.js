@@ -29,28 +29,39 @@ async function loadData() {
 function search(data){
     if(document.querySelector('.synonyms')){
         synonymsContainer.removeChild(document.querySelector('.synonyms'))
+    }
+    if(document.querySelector('.expand_synonyms')){
         synonymsContainer.removeChild(document.querySelector('.expand_synonyms'))
     }
 
     const synonyms = document.createElement('div')
     synonyms.classList.add('synonyms')
-    const expandSynonyms = document.createElement('div')
-    expandSynonyms.classList.add('expand_synonyms')
-    expandSynonyms.innerHTML = 'show more'
+    
     synonymsContainer.appendChild(synonyms)
-    synonymsContainer.appendChild(expandSynonyms)
-    let synonym = []
-    expandSynonyms.addEventListener('click', ()=>{
-        if(synonyms.style.maxHeight!='max-content'){
-            synonyms.style.maxHeight= 'max-content'
-            expandSynonyms.innerHTML = 'show less'
-        }
-        else{
-            synonyms.style.maxHeight= '3em'
-            expandSynonyms.innerHTML = 'show more'
-        }
 
-    })
+    let synonym = []
+    function isOverflown(element) {
+        if(element.scrollHeight > 60 && !document.querySelector('.expand_synonyms')){
+            console.log('es')
+            const expandSynonyms = document.createElement('div')
+            expandSynonyms.classList.add('expand_synonyms')
+            expandSynonyms.innerHTML = 'show more'
+            synonymsContainer.appendChild(expandSynonyms)
+            expandSynonyms.addEventListener('click', ()=>{
+                if(synonyms.style.maxHeight!='max-content'){
+                    synonyms.style.maxHeight= 'max-content'
+                    expandSynonyms.innerHTML = 'show less'
+                }
+                else{
+                    synonyms.style.maxHeight= '3em'
+                    expandSynonyms.innerHTML = 'show more'
+                }
+            })
+        }
+        else if(document.querySelector('.expand_synonyms')){
+            synonymsContainer.removeChild(document.querySelector('.expand_synonyms'))
+        }
+      }
 
     books.style.display='none'
 
@@ -159,5 +170,9 @@ function search(data){
     for(z=0; z<synonym.length; z++){
         synonyms.innerHTML = synonyms.textContent + synonym[z] + ', '
     }
+    isOverflown(synonyms)
+    window.addEventListener('resize', ()=>{
+        isOverflown(synonyms)
+    })
     synonyms.innerHTML = synonyms.textContent.slice(0, -2)
 }
