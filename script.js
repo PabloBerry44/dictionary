@@ -8,7 +8,6 @@ const definitionsTag = document.querySelector('.definitionsTag')
 const definitionsContainer = document.querySelector('.definitionsContainer')
 const books = document.querySelector('.books')
 
-
 search_button.addEventListener('click', ()=> {
     if(!search_bar.value==''){loadData()}
 })
@@ -33,11 +32,13 @@ function search(data){
         definitionsContainer.removeChild(definitionsContainer.lastChild)
     }
 
+    //go through all data[j]
     for(j=0; j<data.length; j++){
         currentData = data[j]
 
         let audioUrl = ''
         let phoneticText = ''
+
         // go through all phonetics indexes
         for(i=0; i<currentData.phonetics.length; i++){
         
@@ -60,24 +61,18 @@ function search(data){
             }
         }
 
-
-
-
-
         let definitionsTag = document.createElement('div')
         definitionsTag.classList.add('definitionsTag')
         definitionsContainer.appendChild(definitionsTag)
 
-
         while(definitionsTag.firstChild){
             definitionsTag.removeChild(definitionsTag.lastChild)
         }
-        //grab all definitions
-        for(i=0; i<currentData.meanings.length; i++){
-
+        //go through all meanings
+        for(y=0; y<currentData.meanings.length; y++){
             //create div and add class to it
             const meaningDiv = document.createElement('div')
-            meaningDiv.classList.add(currentData.meanings[i].partOfSpeech)
+            meaningDiv.classList.add(currentData.meanings[y].partOfSpeech)
             definitionsTag.appendChild(meaningDiv)
 
             // create paragraph and insert text into it
@@ -86,19 +81,13 @@ function search(data){
             partOfSpeech.classList.add('part_of_speech')
             partOfSpeech.innerHTML = meaningDiv.className
 
-            let meaning = currentData.meanings[i]
-            //create paragraphs and add definitions to them
+            let meaning = currentData.meanings[y]
+            //go through all definitions
             for(i=0; i<meaning.definitions.length; i++){
 
                 const definitionText = document.createElement('p')
                 definitionText.classList.add('definition')
-
-                // const definitionIndex = document.createElement('p')
-                // definitionIndex.classList.add('definition_index')
-
-                // meaningDiv.appendChild(definitionIndex)
                 meaningDiv.appendChild(definitionText)
-                // definitionIndex.innerHTML = i+'.'
                 definitionText.innerHTML = meaning.definitions[i].definition + '<br><br>'
             }
         }
@@ -108,8 +97,5 @@ function search(data){
         audioTag.src = audioUrl
 
         search_bar.value = ''
-
     }
-
-    
 }

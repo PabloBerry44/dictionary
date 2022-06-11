@@ -62,6 +62,7 @@ main{
 }
 .phonetic_audio{
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 1em;
 }
