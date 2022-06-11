@@ -7,6 +7,7 @@ const play_button = document.querySelector('.play_button')
 const definitionsTag = document.querySelector('.definitionsTag')
 const definitionsContainer = document.querySelector('.definitionsContainer')
 const books = document.querySelector('.books')
+const synonymsContainer = document.querySelector('.synonyms_container')
 
 search_button.addEventListener('click', ()=> {
     if(!search_bar.value==''){loadData()}
@@ -26,6 +27,30 @@ async function loadData() {
   }
 
 function search(data){
+    if(document.querySelector('.synonyms')){
+        synonymsContainer.removeChild(document.querySelector('.synonyms'))
+        synonymsContainer.removeChild(document.querySelector('.expand_synonyms'))
+    }
+
+    const synonyms = document.createElement('div')
+    synonyms.classList.add('synonyms')
+    const expandSynonyms = document.createElement('div')
+    expandSynonyms.classList.add('expand_synonyms')
+    synonymsContainer.appendChild(synonyms)
+    synonymsContainer.appendChild(expandSynonyms)
+    let synonym = []
+    expandSynonyms.addEventListener('click', ()=>{
+        if(synonyms.style.maxHeight!='max-content'){
+            synonyms.style.maxHeight= 'max-content'
+            expandSynonyms.style.transform = 'rotateZ(180deg)'
+        }
+        else{
+            synonyms.style.maxHeight= '3em'
+            expandSynonyms.style.transform = 'none'
+        }
+
+    })
+
     books.style.display='none'
 
     while(definitionsContainer.firstChild){
@@ -39,7 +64,7 @@ function search(data){
         let audioUrl = ''
         let phoneticText = ''
 
-        // go through all phonetics indexes
+        // go through all phonetics
         for(i=0; i<currentData.phonetics.length; i++){
         
             //find audioURL
@@ -70,6 +95,8 @@ function search(data){
         }
         //go through all meanings
         for(y=0; y<currentData.meanings.length; y++){
+            let meaning = currentData.meanings[y]
+
             //create div and add class to it
             const meaningDiv = document.createElement('div')
             meaningDiv.classList.add(currentData.meanings[y].partOfSpeech)
@@ -81,7 +108,6 @@ function search(data){
             partOfSpeech.classList.add('part_of_speech')
             partOfSpeech.innerHTML = meaningDiv.className
 
-            let meaning = currentData.meanings[y]
             //go through all definitions
             for(i=0; i<meaning.definitions.length; i++){
                 //skip empty definitions
@@ -92,51 +118,42 @@ function search(data){
                     definitionDiv.innerHTML = meaning.definitions[i].definition + '<br>'
                 }
 
-                if(meaning.definitions[i].example || meaning.definitions[i].synonyms){
+                if(meaning.definitions[i].example){
+
+                    const moreInfo = document.createElement('div')
+                    definitionDiv.appendChild(moreInfo)
 
                     const exampleParagraph = document.createElement('p')
                     //check if an example is available
                     if(meaning.definitions[i].example){
-                        let example = meaning.definitions[i].example
-                        definitionDiv.appendChild(exampleParagraph)
-                        exampleParagraph.innerHTML = example
+                        let exampleText = meaning.definitions[i].example
+                        exampleParagraph.innerHTML = exampleText
+                        moreInfo.appendChild(exampleParagraph)
                     }
 
+                    definitionDiv.classList.add('contains_more')
+                    definitionDiv.addEventListener('click', ()=>{
+                        if(moreInfo.style.display!='block'){moreInfo.style.display = 'block'}
+                        else{moreInfo.style.display = 'none'}
 
-                    const synonymParagraph = document.createElement('p')
-                    //check if an synonyms are available
-                    if(meaning.definitions[i].synonyms){
-                        synonyms.children.forEach(child => {
-                            
-                        });
-                    }
-
-                //add ability to view the example
-                definitionDiv.classList.add('contains_more')
-                definitionDiv.addEventListener('click', ()=>{
-                    if(exampleParagraph.style.display == 'block'){
-                        exampleParagraph.style.display = 'none'
-                    }
-                    else{
-                        exampleParagraph.style.display = 'block'
-                    }
-                })
-
-
+                    })
                 }
-
-
-
-
-
-
+                if(meaning.definitions[i].synonyms){
+                    for(q=0; q<meaning.synonyms.length; q++){
+                        if(!synonym.includes(meaning.synonyms[q]))
+                        synonym.push(meaning.synonyms[q])
+                    }
+                }
             }
+            wordTag.innerHTML = currentData.word
+            phoneticTag.innerHTML = phoneticText
+            audioTag.src = audioUrl
+
+            search_bar.value = ''
         }
-
-        wordTag.innerHTML = currentData.word
-        phoneticTag.innerHTML = phoneticText
-        audioTag.src = audioUrl
-
-        search_bar.value = ''
     }
+    for(z=0; z<synonym.length; z++){
+        synonyms.innerHTML = synonyms.textContent + synonym[z] + ', '
+    }
+    synonyms.innerHTML = synonyms.textContent.slice(0, -2)
 }
