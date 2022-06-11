@@ -95,13 +95,13 @@ main{
         color: black;
     }
     .expand_synonyms{
-        width: 3em;
-        height: 3em;
+        width: 2em;
+        height: 2em;
+        margin-top: .5em;
         display: flex;
         align-items: center;
         justify-content: center;
         background-image: url(./arrow-down.png);
-        filter: invert();
         background-size: contain;
         background-repeat: no-repeat;
         transition: 250ms;
