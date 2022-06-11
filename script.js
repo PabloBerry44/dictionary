@@ -84,11 +84,52 @@ function search(data){
             let meaning = currentData.meanings[y]
             //go through all definitions
             for(i=0; i<meaning.definitions.length; i++){
+                //skip empty definitions
+                const definitionDiv = document.createElement('div')
+                definitionDiv.classList.add('definition')
+                if(meaning.definitions[i].definition!=':'){
+                    meaningDiv.appendChild(definitionDiv)
+                    definitionDiv.innerHTML = meaning.definitions[i].definition + '<br>'
+                }
 
-                const definitionText = document.createElement('p')
-                definitionText.classList.add('definition')
-                meaningDiv.appendChild(definitionText)
-                definitionText.innerHTML = meaning.definitions[i].definition + '<br><br>'
+                if(meaning.definitions[i].example || meaning.definitions[i].synonyms){
+
+                    const exampleParagraph = document.createElement('p')
+                    //check if an example is available
+                    if(meaning.definitions[i].example){
+                        let example = meaning.definitions[i].example
+                        definitionDiv.appendChild(exampleParagraph)
+                        exampleParagraph.innerHTML = example
+                    }
+
+
+                    const synonymParagraph = document.createElement('p')
+                    //check if an synonyms are available
+                    if(meaning.definitions[i].synonyms){
+                        synonyms.children.forEach(child => {
+                            
+                        });
+                    }
+
+                //add ability to view the example
+                definitionDiv.classList.add('contains_more')
+                definitionDiv.addEventListener('click', ()=>{
+                    if(exampleParagraph.style.display == 'block'){
+                        exampleParagraph.style.display = 'none'
+                    }
+                    else{
+                        exampleParagraph.style.display = 'block'
+                    }
+                })
+
+
+                }
+
+
+
+
+
+
             }
         }
 

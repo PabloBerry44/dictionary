@@ -26,7 +26,7 @@ main{
 .books{
     width: 70%;
     max-width: 300px;
-    opacity: .5;
+    opacity: 1;
     top: 40%;
     left: 50%;
     transform: translate(-50%);
@@ -51,11 +51,13 @@ main{
         background-size: contain;
         background-repeat: no-repeat;
         margin-top: 3px;
-        margin-right: .5em;
+        margin-left: auto;
+        margin-right: 15px;
         height: 2.2em;
         width: 2.2em;
         font-size: 1rem;
         cursor: pointer;
+        opacity: .5;
     }
 .word{
     font-size: 1.8rem;
@@ -78,10 +80,13 @@ main{
     display: none;
     cursor: pointer;
 }
-.definitionsTag div{
-    counter-reset: index;
-}
+/* .definitionsTag{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+} */
     .part_of_speech{
+        counter-reset: index;
         font-size: 1.4rem;
         text-decoration: underline;
         padding-bottom: .6em;
@@ -90,11 +95,25 @@ main{
         position: relative;
         margin-left: 1.3em;
         display: block;
+        margin-bottom: 15px;
     }
-    .definition::before{
-        position: absolute;
-        left: -1.3em;
-        counter-increment: index;
-        content: counter(index)". ";
-        color: gray;
-    }
+        .definition::before{
+            position: absolute;
+            left: -1.3em;
+            counter-increment: index;
+            content: counter(index)". ";
+            color: gray;
+        }
+        .contains_more{
+            cursor: default;
+        }
+        .definition p{
+            margin-left: 1em;
+            margin-top: .5em;
+            color: gray;
+            display: none;
+        }
+        .definition p::before{
+            content: 'Example: ';
+            color: rgb(68, 68, 68);
+        }
