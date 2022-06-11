@@ -111,10 +111,13 @@ function search(data){
             //go through all definitions
             for(i=0; i<meaning.definitions.length; i++){
                 //skip empty definitions
+                const definitionContainer = document.createElement('div')
+                definitionContainer.classList.add('def_container')
                 const definitionDiv = document.createElement('div')
                 definitionDiv.classList.add('definition')
                 if(meaning.definitions[i].definition!=':'){
-                    meaningDiv.appendChild(definitionDiv)
+                    definitionContainer.appendChild(definitionDiv)
+                    meaningDiv.appendChild(definitionContainer)
                     definitionDiv.innerHTML = meaning.definitions[i].definition + '<br>'
                 }
 
@@ -131,7 +134,7 @@ function search(data){
                         moreInfo.appendChild(exampleParagraph)
                     }
 
-                    definitionDiv.classList.add('contains_more')
+                    definitionContainer.classList.add('contains_more')
                     definitionDiv.addEventListener('click', ()=>{
                         if(moreInfo.style.display!='block'){moreInfo.style.display = 'block'}
                         else{moreInfo.style.display = 'none'}

@@ -112,11 +112,16 @@ main{
     text-decoration: underline;
     padding-bottom: .6em;
 }
+.def_container{
+    background: rgb(247, 247, 247);
+    border-radius: 10px;
+    padding: .5em;
+    margin-bottom: 15px;
+}
 .definition{
     position: relative;
     margin-left: 1.3em;
     display: block;
-    margin-bottom: 15px;
 }
     .definition::before{
         position: absolute;
@@ -127,7 +132,7 @@ main{
     }
     .contains_more{
         cursor: default;
-        color: rgb(52, 52, 142);
+        background: rgb(224, 224, 224);
     }
     .definition div{
         margin-left: 1em;
