@@ -3,44 +3,47 @@ const search_bar = document.querySelector('.search')
 const search_button = document.querySelector('.search_button')
 const phoneticTag = document.querySelector('.phonetic')
 const audioTag = document.querySelector('.audio')
+const play_button = document.querySelector('.play_button')
 const definitionsTag = document.querySelector('.definitionsTag')
 const definitionsContainer = document.querySelector('.definitionsContainer')
 const books = document.querySelector('.books')
 const synonymsContainer = document.querySelector('.synonyms_container')
-const play_button = document.querySelector('.play_button')
 
-//run loadData function on ENTER or CLICK
-search_button.addEventListener('click', loadData)
-search_bar.addEventListener('keypress', (event)=>{if(event.key==='Enter'){loadData()}})
+search_button.addEventListener('click', ()=> {
+    if(!search_bar.value==''){loadData()}
+})
+search_bar.addEventListener('keypress', function(event){
+    if(event.key==='Enter'){
+        loadData()
+    }
+})
+
+play_button.addEventListener('click', ()=>{audioTag.play()})
 
 async function loadData() {
     const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+search_bar.value);
     const data = await response.json();
     search(data)
-    if (!response.ok) {
-		wordTag.innerHTML = 'No results to show'
-        play_button.style.display='none'
-        phoneticTag.style.display='none'
-	}
   }
 
 function search(data){
+
     books.style.display='none'
-    search_bar.value = ''
 
     while(definitionsContainer.firstChild){
         definitionsContainer.removeChild(definitionsContainer.lastChild)
     }
 
-// find audio URL and phonetic notation
+    //go through all data[j]
     for(j=0; j<data.length; j++){
-
         currentData = data[j]
+
         let audioUrl = ''
         let phoneticText = ''
 
+        // go through all phonetics
         for(i=0; i<currentData.phonetics.length; i++){
-                
+        
             //find audioURL
             if(currentData.phonetics[i].audio && !audioUrl){
                 audioUrl=currentData.phonetics[i].audio
@@ -50,7 +53,7 @@ function search(data){
                 play_button.style.display = 'none'
             }
 
-            //find phonetics notation
+            //find phonetics text
             if(currentData.phonetics[i].text && !phoneticText){
                 phoneticText=currentData.phonetics[i].text
                 phoneticTag.style.display = 'block'
@@ -59,22 +62,22 @@ function search(data){
                 phoneticTag.style.display = 'none'
             }
         }
-        wordTag.innerHTML = currentData.word
-        phoneticTag.innerHTML = phoneticText
-        audioTag.src = audioUrl
-    }
 
-//find definitions and examples
-    for(j=0; j<data.length; j++){
-        currentData = data[j]
-        
+        let definitionsTag = document.createElement('div')
+        definitionsTag.classList.add('definitionsTag')
+        definitionsContainer.appendChild(definitionsTag)
+
+        while(definitionsTag.firstChild){
+            definitionsTag.removeChild(definitionsTag.lastChild)
+        }
         //go through all meanings
         for(y=0; y<currentData.meanings.length; y++){
             let meaning = currentData.meanings[y]
+
             //create div and add class to it
             const meaningDiv = document.createElement('div')
             meaningDiv.classList.add(currentData.meanings[y].partOfSpeech)
-            definitionsContainer.appendChild(meaningDiv)
+            definitionsTag.appendChild(meaningDiv)
 
             // create paragraph and insert text into it
             const partOfSpeech = document.createElement('p')
@@ -84,61 +87,59 @@ function search(data){
 
             //go through all definitions
             for(i=0; i<meaning.definitions.length; i++){
-                if(meaning.definitions[i].definition!=':'){//skip empty definitions
-                    //create definition container
-                    definitionContainer = document.createElement('div')
-                    definitionContainer.classList.add('def_container')
-                    //create definition DIV and add it to container
-                    definitionDiv = document.createElement('div')
-                    definitionDiv.classList.add('definition')
+                //skip empty definitions
+                const definitionContainer = document.createElement('div')
+                definitionContainer.classList.add('def_container')
+                const definitionDiv = document.createElement('div')
+                definitionDiv.classList.add('definition')
+                if(meaning.definitions[i].definition!=':'){
                     definitionContainer.appendChild(definitionDiv)
                     meaningDiv.appendChild(definitionContainer)
                     definitionDiv.innerHTML = meaning.definitions[i].definition + '<br>'
                 }
 
-                //if an example is available
                 if(meaning.definitions[i].example){
-                    //create moreInfo DIV that will contain example
+
                     const moreInfo = document.createElement('div')
                     definitionDiv.appendChild(moreInfo)
-                    //create example paragraph that will contain text of the example
+
                     const exampleParagraph = document.createElement('p')
-                    let exampleText = meaning.definitions[i].example
-                    exampleParagraph.innerHTML = exampleText
-                    moreInfo.appendChild(exampleParagraph)
-                    //add class to definition container that makes it stand out
+                    //check if an example is available
+                    if(meaning.definitions[i].example){
+                        let exampleText = meaning.definitions[i].example
+                        exampleParagraph.innerHTML = exampleText
+                        moreInfo.appendChild(exampleParagraph)
+                    }
+
                     definitionContainer.classList.add('contains_more')
-                    definitionContainer.addEventListener('click', ()=>{
+                    definitionDiv.addEventListener('click', ()=>{
                         if(moreInfo.style.display!='block'){moreInfo.style.display = 'block'}
                         else{moreInfo.style.display = 'none'}
+
                     })
                 }
             }
+            wordTag.innerHTML = currentData.word
+            phoneticTag.innerHTML = phoneticText
+            audioTag.src = audioUrl
+
+            search_bar.value = ''
         }
     }
+}
 
-    let synonym = []
-    let antonym = []
-    for(j=0; j<data.length; j++){
-        currentData = data[j]
-        for(y=0; y<currentData.meanings.length; y++){
-            let meaning = currentData.meanings[y]
-            for(i=0; i<meaning.definitions.length; i++){
-                if(meaning.definitions[i].synonyms){
-                    for(q=0; q<meaning.synonyms.length; q++){
-                        if(!synonym.includes(meaning.synonyms[q]))
-                        synonym.push(meaning.synonyms[q])
-                    }
-                }
-                if(meaning.definitions[i].antonyms){
-                    for(q=0; q<meaning.antonyms.length; q++){
-                        if(!antonym.includes(meaning.antonyms[q]))
-                        antonym.push(meaning.antonyms[q])
-                    }
-                }
+
+for(j=0; j<data.length; j++){
+    currentData = data[j]
+    for(y=0; y<currentData.meanings.length; y++){
+        let meaning = currentData.meanings[y]
+        
+        if(meaning.definitions[i].synonyms){
+            for(q=0; q<meaning.synonyms.length; q++){
+                if(!synonym.includes(meaning.synonyms[q]))
+                synonym.push(meaning.synonyms[q])
             }
         }
     }
     console.log(synonym)
-    console.log(antonym)
 }
