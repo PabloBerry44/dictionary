@@ -160,9 +160,7 @@ function search(data){
     synonymsParagraph.innerHTML = synonymsParagraph.textContent.slice(0, -2)
     if(synonym.length>0){
         synonymsContainer.appendChild(synonymsParagraph)
-
     }
-    else{synonymsContainer.classList.remove('contains')}
 
     //display antonyms on page
     const antonymsParagraph = document.createElement('p')
@@ -179,6 +177,9 @@ function search(data){
         showNonyms.innerHTML = 'Show synonyms and antonyms'
         synonymsContainer.appendChild(showNonyms)
         synonymsContainer.style.display='flex'
+    }
+    else{
+        synonymsContainer.style.display='none'
     }
     synonymsContainer.addEventListener('click', ()=>{
         if(synonymsParagraph.style.display!='block'){
