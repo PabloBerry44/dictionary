@@ -23,6 +23,7 @@ async function loadData() {
         synonymsContainer.style.display = 'none'
         play_button.style.display='none'
         phoneticTag.style.display='none'
+        books.style.display='block'
 	}
   }
 

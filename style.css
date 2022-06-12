@@ -146,8 +146,3 @@ main{
         content: 'Example: ';
         color: rgb(68, 68, 68);
     }
-@media only screen and (min-width: 800px) {
-    .books{
-        display: none;
-    }
-}
