@@ -12,7 +12,7 @@ const showNonyms = document.querySelector('.show_nonyms')
 
 //run loadData function on ENTER or CLICK
 search_button.addEventListener('click', loadData)
-search_bar.addEventListener('keypress', (event)=>{if(event.key==='Enter'){loadData()}})
+search_bar.addEventListener('keypress', (event)=>{if(event.key==='Enter'){loadData(); search_bar.blur()}})
 
 async function loadData() {
     const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+search_bar.value);
