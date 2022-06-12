@@ -129,17 +129,3 @@ function search(data){
 }
 
 
-for(j=0; j<data.length; j++){
-    currentData = data[j]
-    for(y=0; y<currentData.meanings.length; y++){
-        let meaning = currentData.meanings[y]
-        
-        if(meaning.definitions[i].synonyms){
-            for(q=0; q<meaning.synonyms.length; q++){
-                if(!synonym.includes(meaning.synonyms[q]))
-                synonym.push(meaning.synonyms[q])
-            }
-        }
-    }
-    console.log(synonym)
-}

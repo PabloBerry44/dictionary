@@ -8,6 +8,7 @@ const definitionsContainer = document.querySelector('.definitionsContainer')
 const books = document.querySelector('.books')
 const synonymsContainer = document.querySelector('.synonyms_container')
 const play_button = document.querySelector('.play_button')
+const showNonyms = document.querySelector('.show_nonyms')
 
 //run loadData function on ENTER or CLICK
 search_button.addEventListener('click', loadData)
@@ -117,6 +118,7 @@ function search(data){
         }
     }
 
+    //collect synonyms and antonyms
     let synonym = []
     let antonym = []
     for(j=0; j<data.length; j++){
@@ -139,6 +141,51 @@ function search(data){
             }
         }
     }
-    console.log(synonym)
-    console.log(antonym)
+
+    //delete all previous synonyms and antonyms
+    while(synonymsContainer.firstChild){
+        synonymsContainer.removeChild(synonymsContainer.lastChild)
+    }
+
+    
+    synonymsContainer.style.display = 'block'
+    //display synonyms on page
+    const synonymsParagraph = document.createElement('p')
+    synonymsParagraph.classList.add('synonyms_p')
+    for(s=0; s<synonym.length; s++){
+        synonymsParagraph.innerHTML = synonymsParagraph.textContent + synonym[s] + ', '
+    }
+    if(synonymsParagraph.textContent!=''){
+        synonymsContainer.appendChild(synonymsParagraph)
+        synonymsContainer.classList.add('contains')
+    }else{synonymsContainer.classList.remove('contains')}
+    //display antonyms on page
+    const antonymsParagraph = document.createElement('p')
+    antonymsParagraph.classList.add('antonyms_p')
+    for(a=0; a<antonym.length; a++){
+        antonymsParagraph.innerHTML = antonymsParagraph.textContent + antonym[a] + ', '
+    }
+    if(antonymsParagraph.textContent!=''){
+        synonymsContainer.appendChild(antonymsParagraph)
+        synonymsContainer.classList.add('contains')
+    }else{synonymsContainer.classList.remove('contains')}
+    if(synonymsContainer.classList.contains('contains')){
+        synonymsContainer.appendChild(showNonyms)
+        showNonyms.innerHTML = 'Show synonyms and antonyms'
+    }
+    else{
+        synonymsContainer.style.display='none'
+    }
+    synonymsContainer.addEventListener('click', ()=>{
+        if(synonymsParagraph.style.display!='block'){
+            synonymsParagraph.style.display='block'
+            antonymsParagraph.style.display='block'
+            showNonyms.innerHTML = ''
+        }
+        else{
+            synonymsParagraph.style.display='none'
+            antonymsParagraph.style.display='none'
+            showNonyms.innerHTML = 'Show synonyms and antonyms'
+        }
+    })
 }

@@ -83,20 +83,29 @@ main{
 .synonyms_container{
     display: flex;
     flex-direction: column;
+    gap: .5em;
+    background: rgb(247, 247, 247);
+    padding: .5em;
+    border-radius: 5px;
+    display: none;
 }
-.synonyms{
-    color: rgb(106, 106, 106);
-    max-height: 3em;
-    overflow: hidden;
-    width: 100%;
-}
-    .synonyms::before{
+    .synonyms_p::before{
         content: 'Synonyms: ';
         font-size: 1.2rem;
         color: black;
     }
-    .expand_synonyms{
-        cursor: pointer;
+    .synonyms_p{
+        color: rgb(77, 77, 77);
+        display: none;
+    }
+    .antonyms_p::before{
+        content: 'Antonyms: ';
+        font-size: 1.2rem;
+        color: black;
+    }
+    .antonyms_p{
+        color: rgb(77, 77, 77);
+        display: none;
     }
 .part_of_speech{
     counter-reset: index;
